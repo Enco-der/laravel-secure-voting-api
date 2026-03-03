@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Admin - Voting System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'bounce-in': 'bounceIn 0.8s ease-out',
+                        'pulse-slow': 'pulse 3s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .gradient-bg {
+            background: #2b4564 ;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2);
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, white 2px, transparent 2px), radial-gradient(circle at 75% 75%, white 2px, transparent 2px); background-size: 50px 50px;"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="relative z-10 p-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3 animate-fade-in">
+                <div class="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center shadow-lg">
+                   
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-white">SecureVote</h1>
+                    <p class="text-white/80 text-sm">Super Admin Panel</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-white/90">
+                <a href="super.html" class="hover:text-white transition-colors">Dashboard</a>
+                <a href="manageAdmin.html" class="hover:text-white transition-colors">Elections</a>
+                <a href="manageAdmin.html" class="text-white font-semibold">Admins</a>
+                <a href="setting.html" class="hover:text-white transition-colors">Settings</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 px-6 pb-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Page Title -->
+            <div class="text-center mb-8 animate-slide-up">
+                <h2 class="text-4xl font-bold text-white mb-2">Add New Admin</h2>
+                <p class="text-white/80 text-lg">Create administrator credentials for the voting system</p>
+            </div>
+
+            <!-- Form Container -->
+            <div class="glass-effect rounded-2xl p-8 shadow-2xl animate-bounce-in">
+                <div id="formMessage" class="text-center mb-4 hidden"></div>
+
+                <form id="addAdminForm" class="space-y-6">
+                    <!-- Personal Information Section -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                            </svg>
+                            Personal Information
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="block text-white/90 font-medium">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="fullName"
+                                    class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-primary-400 focus:bg-white/20 transition-all duration-300 input-focus"
+                                    placeholder="Enter admin's full name"
+                                    required
+                                >
+                                <span class="error-message text-red-300 text-sm hidden"></span>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white/90 font-medium">Email Address</label>
+                                <input 
+                                    type="email" 
+                                    id="email"
+                                    class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-primary-400 focus:bg-white/20 transition-all duration-300 input-focus"
+                                    placeholder="admin@votesecure.com"
+                                    required
+                                >
+                                <span class="error-message text-red-300 text-sm hidden"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Details Section -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2z" clip-rule="evenodd"/>
+                            </svg>
+                            Account Details
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+    <!-- Username Input -->
+    <div class="space-y-2">
+        <label class="block text-white/90 font-medium">Username</label>
+        <input 
+            type="text" 
+            id="username"
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-primary-400 focus:bg-white/20 transition-all duration-300 input-focus"
+            placeholder="Choose a unique username"
+            required
+        >
+        <span class="error-message text-red-300 text-sm hidden"></span>
+    </div>
+
+    <!-- City Select Dropdown -->
+    <div class="space-y-2">
+        <label class="block text-white/90 font-medium">Assign City</label>
+        <select id="city" name="city" 
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg placeholder-white/50 focus:outline-none focus:border-primary-400 focus:bg-white/20 transition-all duration-300">
+            <option value="">Select a city</option>
+            <option value="">nowshera</option>
+            <option value="">akora khattak</option>
+            <option value="">kaka sahib</option>
+            <option value="">session dag</option>
+            <option value="">charsadda</option>
+            <option value="">peshaward</option>
+            <!-- Cities will be dynamically loaded via JS -->
+        </select>
+        <span class="error-message text-red-300 text-sm hidden"></span>
+    </div>
+</div>
+
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="space-y-2">
+                                <label class="block text-white/90 font-medium">Password</label>
+                                <div class="relative">
+                                    <input 
+                                        type="password" 
+                                        id="password"
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-primary-400 focus:bg-white/20 transition-all duration-300 input-focus pr-12"
+                                        placeholder="Create secure password"
+                                        required
+                                    >
+                                    <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="text-white/60 text-xs mt-1">
+                                    Password must be at least 8 characters long
+                                </div>
+                                <span class="error-message text-red-300 text-sm hidden"></span>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white/90 font-medium">Confirm Password</label>
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword"
+                                    class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-primary-400 focus:bg-white/20 transition-all duration-300 input-focus"
+                                    placeholder="Confirm password"
+                                    required
+                                >
+                                <span class="error-message text-red-300 text-sm hidden"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                 
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button 
+                            type="submit" 
+                            id="submitBtn"
+                           class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 btn-hover focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+
+                        >
+                            <span class="flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                                </svg>
+                                Create Admin Account
+                            </span>
+                        </button>
+                        
+                        <button 
+                            type="button" 
+                            id="cancelBtn"
+                            class="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 animate-bounce-in">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Admin Created Successfully!</h3>
+                <p class="text-gray-600 mb-6">The new administrator account has been created and credentials have been sent via email.</p>
+                <button id="closeModal" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form validation and submission
+        const form = document.getElementById('addAdminForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successModal = document.getElementById('successModal');
+        const closeModal = document.getElementById('closeModal');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        // Password visibility toggle
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle icon
+            this.innerHTML = type === 'password' 
+                ? '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>'
+                : '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd"/><path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"/></svg>';
+        });
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            const fields = ['fullName', 'email', 'username', 'adminRole', 'password', 'confirmPassword'];
+            
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const errorSpan = field.parentNode.querySelector('.error-message');
+                
+                if (!field.value.trim()) {
+                    showError(field, errorSpan, 'This field is required');
+                    isValid = false;
+                } else {
+                    hideError(field, errorSpan);
+                }
+            });
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value && !emailRegex.test(email.value)) {
+                showError(email, email.parentNode.querySelector('.error-message'), 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            
+            if (password.value && password.value.length < 8) {
+                showError(password, password.parentNode.querySelector('.error-message'), 'Password must be at least 8 characters long');
+                isValid = false;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                showError(confirmPassword, confirmPassword.parentNode.querySelector('.error-message'), 'Passwords do not match');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showError(field, errorSpan, message) {
+            field.classList.add('border-red-400');
+            field.classList.remove('border-white/20');
+            errorSpan.textContent = message;
+            errorSpan.classList.remove('hidden');
+        }
+
+        function hideError(field, errorSpan) {
+            field.classList.remove('border-red-400');
+            field.classList.add('border-white/20');
+            errorSpan.classList.add('hidden');
+        }
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // Show loading state
+                submitBtn.innerHTML = `
+                    <span class="flex items-center justify-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Creating Admin...
+                    </span>
+                `;
+                submitBtn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    successModal.classList.remove('hidden');
+                    
+                    // Reset form
+                    form.reset();
+                    submitBtn.innerHTML = `
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                            </svg>
+                            Create Admin Account
+                        </span>
+                    `;
+                    submitBtn.disabled = false;
+                }, 2000);
+            }
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            successModal.classList.add('hidden');
+        });
+
+        // Cancel button
+        document.getElementById('cancelBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to cancel? All entered data will be lost.')) {
+                form.reset();
+            }
+        });
+
+        // Real-time validation
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                const errorSpan = this.parentNode.querySelector('.error-message');
+                if (this.value.trim()) {
+                    hideError(this, errorSpan);
+                }
+            });
+        });
+
+        // Add floating animation to form elements
+        const formElements = document.querySelectorAll('input, select, button');
+        formElements.forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.1}s`;
+            element.classList.add('animate-slide-up');
+        });
+
+
+
+
+
+        // --------------------------------------------------------------------------------------
+
+    </script>
+
+    <script src="../../js/superAdmin/addAdmin.js"></script>
+</body>
+</html>

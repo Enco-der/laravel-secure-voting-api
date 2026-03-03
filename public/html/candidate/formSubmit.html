@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Gradient Header Background */
+    .bg-gradient-header {
+      background: linear-gradient(to right, #4f46e5, #6366f1);
+    }
+    /* Toast Notification Styles */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4ade80;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex justify-center items-start">
+    <div class="max-w-3xl w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+
+      <!-- Header -->
+      <div class="bg-gradient-header p-8 text-center">
+        <h1 class="text-3xl font-bold text-white mb-2">Application Form</h1>
+        <p class="text-blue-100">Please fill out all required information</p>
+      </div>
+
+      <!-- Form -->
+      <form id="applicationForm" class="p-8 space-y-6">
+        <!-- Applicant Name -->
+        <div class="space-y-2">
+  <label class="text-sm font-semibold text-gray-700">Username *</label>
+  <input type="text" id="username" required placeholder="Create username"
+         class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+</div>    
+        
+
+        <!-- Email -->
+        <div class="space-y-2">
+          <label for="email" class="text-sm font-semibold text-gray-700">Email Address *</label>
+          <input type="email" id="email" required placeholder="your.email@example.com"
+                 class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+        </div>
+
+
+        <!-- Password -->
+<div class="space-y-2">
+  <label class="text-sm font-semibold text-gray-700">Password *</label>
+  <input type="password" id="password" required placeholder="Create password"
+         class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+</div>    
+
+<div class="space-y-2">
+  <label class="text-sm font-semibold text-gray-700">CNIC Picture *</label>
+  <input type="file" id="cnic_picture" required
+         class="w-full border border-gray-300 rounded-md px-4 py-2 cursor-pointer focus:ring-2 focus:ring-indigo-500">
+</div>      
+
+<!-- Party Ticket -->
+<div class="space-y-2">
+  <label class="text-sm font-semibold text-gray-700">Party Ticket *</label>
+  <input type="text" id="party_ticket" required placeholder="Enter party ticket name"
+         class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+</div>
+
+        <!-- Country & Organization -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label for="country" class="text-sm font-semibold text-gray-700">Country *</label>
+            <input type="text" id="country" required placeholder="Enter your country"
+                   class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+          </div>
+          <div class="space-y-2">
+            <label for="organization" class="text-sm font-semibold text-gray-700">Organization *</label>
+            <input type="text" id="organization" required placeholder="Your organization name"
+                   class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+          </div>
+        </div>
+
+        <!-- Applied Date & Region Code -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label for="applied_date" class="text-sm font-semibold text-gray-700">Applied Date *</label>
+            <input type="date" id="applied_date" required
+                   class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+          </div>
+          <div class="space-y-2">
+            <label for="region_code" class="text-sm font-semibold text-gray-700">Region Code *</label>
+            <input type="text" id="region_code" required placeholder="e.g., 222426"
+                   class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+          </div>
+        </div>
+
+        <!-- Access Scope -->
+        <div class="space-y-2">
+          <label for="access_scope" class="text-sm font-semibold text-gray-700">Access Scope *</label>
+          <select id="access_scope"
+                  class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="" disabled selected>Select access level</option>
+            <option value="city">City Level</option>
+            <option value="state">State Level</option>
+            <option value="national">National Level</option>
+          </select>
+        </div>
+
+        <!-- Documents Upload -->
+        <div class="space-y-2">
+          <label for="documents" class="text-sm font-semibold text-gray-700">Documents</label>
+          <input type="file" id="documents" multiple
+                 class="w-full border border-gray-300 rounded-md px-4 py-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+        </div>
+
+        <!-- Feedback -->
+        <div class="space-y-2">
+          <label for="feedback" class="text-sm font-semibold text-gray-700">Feedback (Optional)</label>
+          <textarea id="feedback" placeholder="Add any additional feedback or comments..."
+                    class="w-full border border-gray-300 rounded-md px-4 py-2 min-h-[120px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-lg flex justify-center items-center">
+            <span class="mr-2">📤</span> Submit Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Application submitted successfully!</div>
+<script>
+document.getElementById("applicationForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    let formData = new FormData();
+    formData.append("username", document.getElementById("username").value);
+    formData.append("password", document.getElementById("password").value);
+    formData.append("applicant_name", document.getElementById("username").value); // change if needed
+    formData.append("email", document.getElementById("email").value);
+    formData.append("country", document.getElementById("country").value);
+    formData.append("organization", document.getElementById("organization").value);
+    formData.append("applied_date", document.getElementById("applied_date").value);
+    formData.append("region_code", document.getElementById("region_code").value);
+    formData.append("access_scope", document.getElementById("access_scope").value);
+    formData.append("party_ticket", document.getElementById("party_ticket").value);
+    formData.append("cnic_picture", document.getElementById("cnic_picture").files[0]);
+
+    const documents = document.getElementById("documents").files;
+    for (let i = 0; i < documents.length; i++) {
+        formData.append("documents[]", documents[i]);
+    }
+
+    try {
+        let response = await fetch("http://127.0.0.1:8000/api/candidate", {
+            method: "POST",
+            body: formData
+        });
+
+        let result = await response.json();
+
+        if(response.ok) {
+            // Show success message
+            alert(result.message);
+
+            // Redirect after 1 second
+            setTimeout(() => {
+                window.location.href = "candidateinterface.html";
+            }, 1000);
+        } else {
+            // Validation errors
+            let errors = Object.values(result.errors || {}).flat().join("\n");
+            alert(errors || "Something went wrong!");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Network or server error!");
+    }
+});
+</script>
+
+
+</body>
+</html>

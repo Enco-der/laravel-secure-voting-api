@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pak_Electra_</title>
+    <meta name="description" content="Secure, transparent, and accessible online voting platform for modern democracy" />
+    <meta name="author" content="VotePulse" />
+
+    <meta property="og:title" content="VotePulse - Secure Online Voting System" />
+    <meta property="og:description" content="Secure, transparent, and accessible online voting platform for modern democracy" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@votepulse" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'sans': ['Inter', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              'vote-blue': '#2563eb',
+              'vote-dark': '#1e40af',
+              'vote-light': '#dbeafe',
+              'vote-green': '#10b981',
+              'vote-red': '#ef4444'
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.6s ease-out',
+              'slide-up': 'slideUp 0.8s ease-out',
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 3s infinite'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+      
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      .glass-effect {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .hover-scale {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .hover-scale:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+      
+      .btn-glow {
+        box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        transition: all 0.3s ease;
+      }
+      
+      .btn-glow:hover {
+        box-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 flex items-center">
+              <div class="w-8 h-8 bg-vote-blue rounded-lg flex items-center justify-center mr-3">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <span class="text-xl font-bold text-gray-900">SecureVote</span>
+            </div>
+          </div>
+          
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a href="/html/admin/adminLogin.html" class="text-gray-600 hover:text-vote-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Presiding_Officer</a>
+              <a href="/html/superadmin/superadminLogin.html" class="text-gray-600 hover:text-vote-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">ElectionComission</a>
+              <a href="html/candidate/candidateinterface.html" class="text-gray-600 hover:text-vote-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Candidate</a>
+              <a href="#contact" class="text-gray-600 hover:text-vote-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+            </div>
+          </div>
+          
+          <div class="flex items-center space-x-4">
+             <a href="{{ asset('/html/login.html') }}"> <button  class="text-vote-blue hover:text-vote-dark font-medium text-sm transition-colors">
+              Sign In
+            </button></a>
+             
+            <a href="{{ asset('/html/register.html') }}">
+            <button class="bg-vote-blue hover:bg-vote-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-all btn-glow">
+              Sign Up
+            </button></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+                                            <!-- Hero Section -->
+    <section class="pt-16 pb-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+          <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left animate-fade-in">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              Secure
+              <span class="text-vote-blue">Digital Voting</span>
+              for Modern Democracy
+            </h1>
+            <p class="mt-6 text-xl text-gray-600 leading-relaxed">
+              Experience the future of voting with our secure, transparent, and accessible online voting platform. Make your voice heard from anywhere, anytime.
+            </p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <button onclick="showSignUp()" class="bg-vote-blue hover:bg-vote-dark text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all btn-glow transform hover:scale-105">
+                Start Voting Now
+              </button>
+              <button onclick="learnMore()" class="border-2 border-vote-blue text-vote-blue hover:bg-vote-blue hover:text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all">
+                Learn More
+              </button>
+            </div>
+            
+            <div class="mt-12 flex items-center justify-center lg:justify-start space-x-8">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-gray-900">00</div>
+                <div class="text-sm text-gray-600">Active Voters</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-gray-900">00</div>
+                <div class="text-sm text-gray-600">Elections Held</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-gray-900">99.9%</div>
+                <div class="text-sm text-gray-600">Uptime</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-16 lg:mt-0 lg:col-span-6 animate-slide-up">
+            <div class="relative mx-auto max-w-lg lg:max-w-none">
+              <div class="relative animate-float">
+                <div class="absolute inset-0 bg-gradient-to-r from-vote-blue to-purple-600 rounded-3xl transform rotate-6 opacity-20"></div>
+                <div class="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+                  <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Sample Ballot</h3>
+                    <p class="text-gray-600">Leadership Selection 2024</p>
+                  </div>
+                  
+                  <div class="space-y-4">
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                      <input type="radio" name="candidate" class="w-4 h-4 text-vote-blue">
+                      <div class="ml-4">
+                        <div class="font-medium text-gray-900">Abdullah</div>
+                        <div class="text-sm text-gray-600">Vision & Growth Coalition</div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                      <input type="radio" name="candidate" class="w-4 h-4 text-vote-blue" checked>
+                      <div class="ml-4">
+                        <div class="font-medium text-gray-900">Annsar</div>
+                        <div class="text-sm text-gray-600">The Future Initiative</div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                      <input type="radio" name="candidate" class="w-4 h-4 text-vote-blue">
+                      <div class="ml-4">
+                        <div class="font-medium text-gray-900">imam</div>
+                        <div class="text-sm text-gray-600">Progressive Action Alliance</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <button class="w-full mt-6 bg-vote-green text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                    Submit Vote
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+     
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-fade-in">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose VotePulse?</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Our platform combines cutting-edge security with user-friendly design to deliver the most trusted online voting experience.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="text-center p-8 rounded-2xl hover-scale border border-gray-100 animate-slide-up">
+            <div class="w-16 h-16 bg-vote-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-vote-blue" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Bank-Level Security</h3>
+            <p class="text-gray-600">End-to-end encryption and multi-factor authentication protect every vote.</p>
+          </div>
+          
+          <div class="text-center p-8 rounded-2xl hover-scale border border-gray-100 animate-slide-up" style="animation-delay: 0.1s">
+            <div class="w-16 h-16 bg-vote-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-vote-blue" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Verified Results</h3>
+            <p class="text-gray-600">Blockchain technology ensures transparent and tamper-proof election results.</p>
+          </div>
+          
+          <div class="text-center p-8 rounded-2xl hover-scale border border-gray-100 animate-slide-up" style="animation-delay: 0.2s">
+            <div class="w-16 h-16 bg-vote-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-vote-blue" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Easy to Use</h3>
+            <p class="text-gray-600">Intuitive interface works perfectly on any device, anywhere.</p>
+          </div>
+          
+          <div class="text-center p-8 rounded-2xl hover-scale border border-gray-100 animate-slide-up" style="animation-delay: 0.3s">
+            <div class="w-16 h-16 bg-vote-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-vote-blue" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">24/7 Support</h3>
+            <p class="text-gray-600">Round-the-clock technical support ensures smooth elections.</p>
+          </div>
+          
+          <div class="text-center p-8 rounded-2xl hover-scale border border-gray-100 animate-slide-up" style="animation-delay: 0.4s">
+            <div class="w-16 h-16 bg-vote-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-vote-blue" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Audit Trail</h3>
+            <p class="text-gray-600">Complete voting history and audit logs for full transparency.</p>
+          </div>
+          
+          <div class="text-center p-8 rounded-2xl hover-scale border border-gray-100 animate-slide-up" style="animation-delay: 0.5s">
+            <div class="w-16 h-16 bg-vote-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-vote-blue" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Real-time Results</h3>
+            <p class="text-gray-600">Live election tracking with instant result updates and analytics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg">
+      <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-white mb-6 animate-fade-in">
+          Ready to Transform Democracy?
+        </h2>
+        <p class="text-xl text-white/90 mb-10 animate-fade-in">
+          Join thousands of organizations already using VotePulse for secure, transparent elections.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
+          <button onclick="showSignUp()" class="bg-white text-vote-blue px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-100 transition-all btn-glow">
+            Get Started Free
+          </button>
+          <button onclick="showDemo()" class="border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/10 transition-all">
+            Request Demo
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="col-span-2">
+            <div class="flex items-center mb-6">
+              <div class="w-8 h-8 bg-vote-blue rounded-lg flex items-center justify-center mr-3">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <span class="text-xl font-bold">SecureVote</span>
+            </div>
+            <p class="text-gray-400 mb-6 max-w-md">
+              Empowering democracy through secure, accessible, and transparent online voting solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Platform</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Security</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Support</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Status</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+          <p class="text-gray-400">
+            © 2024 SecureVote. All rights reserved. Securing democracy, one vote at a time.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <!-- JavaScript -->
+    <script>
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements with animation classes
+      document.querySelectorAll('.animate-fade-in, .animate-slide-up').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+
+      // Functions for buttons (placeholders for future implementation)
+      function showSignUp() {
+        alert('Sign Up functionality will be implemented soon!\n\nYou can connect this to your authentication system.');
+      }
+
+      function showSignIn() {
+        alert('Sign In functionality will be implemented soon!\n\nYou can connect this to your authentication system.');
+      }
+
+      function learnMore() {
+        document.querySelector('#features').scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+
+      function showDemo() {
+        alert('Demo request functionality will be implemented soon!\n\nYou can connect this to a form or booking system.');
+      }
+
+      // Add some interactive effects
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add pulse effect to CTA buttons
+        const ctaButtons = document.querySelectorAll('.btn-glow');
+        ctaButtons.forEach(button => {
+          button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px) scale(1.02)';
+          });
+          
+          button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+          });
+        });
+
+        // Add typing effect to hero title (optional)
+        const heroTitle = document.querySelector('h1');
+        if (heroTitle) {
+          heroTitle.style.opacity = '1';
+          heroTitle.style.animation = 'fadeIn 1s ease-out';
+        }
+      });
+
+      // Add mobile menu toggle (for responsive design)
+      const mobileMenuButton = document.createElement('button');
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      `;
+      mobileMenuButton.className = 'md:hidden text-gray-600 hover:text-gray-900 p-2';
+      
+      // Add to navigation (you can expand this for mobile menu functionality)
+      const nav = document.querySelector('nav .flex');
+      if (nav && window.innerWidth < 768) {
+        nav.appendChild(mobileMenuButton);
+      }
+    </script>
+  </body>
+</html>
+

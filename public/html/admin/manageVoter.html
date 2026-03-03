@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white">
+
+    <div class="container mx-auto p-6">
+
+        <h1 class="text-3xl font-bold text-blue-400 mb-6">Voter Management Dashboard</h1>
+
+        <div class="overflow-x-auto bg-gray-900 rounded-lg shadow-lg">
+            <table class="min-w-full text-left">
+                <thead class="bg-blue-400 text-black">
+                    <tr>
+                       
+                        <th class="px-6 py-3">Username</th>
+                        <th class="px-6 py-3">Email</th>
+                        
+                        <th class="px-6 py-3">Role</th>
+                        <th class="px-6 py-3">Voter Key</th>
+                        <th class="px-6 py-3">Has Voted</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="voterTableBody" class="divide-y divide-gray-700">
+                    <!-- Data will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const token = localStorage.getItem("token"); // Optional if using token auth
+                const response = await fetch("http://127.0.0.1:8000/api/voters", {
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": token ? "Bearer " + token : ""
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!data.status) {
+                    alert("Failed to fetch voters");
+                    return;
+                }
+
+                const tbody = document.getElementById("voterTableBody");
+                tbody.innerHTML = "";
+
+                data.voters.forEach((voter, index) => {
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-gray-800 transition-all">
+                            <td class="px-6 py-3">${voter.name}</td>
+                            <td class="px-6 py-3">${voter.email}</td>
+                            
+                            <td class="px-6 py-3">${voter.role}</td>
+                            <td class="px-6 py-3">${voter.voter_key}</td>
+                            <td class="px-6 py-3">${voter.has_voted ? "Yes" : "No"}</td>
+                            
+                            
+                        </tr>
+                    `;
+                });
+
+            } catch (error) {
+                console.error(error);
+                alert("Something went wrong while fetching voters");
+            }
+        });
+    </script>
+</body>
+</html>

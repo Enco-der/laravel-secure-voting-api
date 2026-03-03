@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidate Panel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body { font-family: 'Poppins', sans-serif; }
+  .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+</style>
+</head>
+<body class="bg-blue-50">
+
+<!-- Header -->
+<header class="bg-blue-600 text-white p-5 shadow-md flex justify-between items-center">
+  <div class="flex items-center space-x-3">
+    <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
+      <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+    </div>
+    <h1 class="text-2xl font-bold">Candidate Panel</h1>
+  </div>
+  <div>
+    <button class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">Logout</button>
+  </div>
+</header>
+
+<!-- Candidate Stats Cards -->
+<div class="max-w-7xl mx-auto p-5 grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+  <div class="bg-white p-4 rounded-xl shadow-md card-hover text-center">
+    <h2 class="text-gray-600 font-semibold">Total Candidates</h2>
+    <p class="text-3xl font-bold text-blue-600 mt-2">12</p>
+  </div>
+  <div class="bg-white p-4 rounded-xl shadow-md card-hover text-center">
+    <h2 class="text-gray-600 font-semibold">Total Votes</h2>
+    <p class="text-3xl font-bold text-blue-600 mt-2">1,254</p>
+  </div>
+  <div class="bg-white p-4 rounded-xl shadow-md card-hover text-center">
+    <h2 class="text-gray-600 font-semibold">Leading Candidate</h2>
+    <p class="text-3xl font-bold text-blue-600 mt-2">Candidate A</p>
+  </div>
+</div>
+
+<!-- Candidate Importance / Modules Section -->
+<section class="max-w-7xl mx-auto mt-10 p-5">
+  <h2 class="text-xl font-bold text-blue-600 mb-5">Candidate Importance Modules</h2>
+  <div class="bg-white p-4 rounded-xl shadow-md grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="text-center p-4 border rounded-lg hover:shadow-lg transition">
+      <img src="https://img.icons8.com/ios/64/0000FF/person-male.png" class="mx-auto mb-2 w-12 h-12">
+      <h3 class="font-bold text-blue-600">Candidate Profile</h3>
+      <p class="text-gray-600 text-sm mt-1">View complete profile and background of candidate.</p>
+    </div>
+    <div class="text-center p-4 border rounded-lg hover:shadow-lg transition">
+      <img src="https://img.icons8.com/ios/64/0000FF/poll.png" class="mx-auto mb-2 w-12 h-12">
+      <h3 class="font-bold text-blue-600">Votes Overview</h3>
+      <p class="text-gray-600 text-sm mt-1">Track the votes cast for this candidate in real-time.</p>
+    </div>
+    <div class="text-center p-4 border rounded-lg hover:shadow-lg transition">
+      <img src="https://img.icons8.com/ios/64/0000FF/line-chart.png" class="mx-auto mb-2 w-12 h-12">
+      <h3 class="font-bold text-blue-600">Performance Analytics</h3>
+      <p class="text-gray-600 text-sm mt-1">Analyze the candidate's vote trends and importance level.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Candidate Analytics Chart -->
+<section class="max-w-7xl mx-auto mt-10 p-5">
+  <h2 class="text-xl font-bold text-blue-600 mb-5">Vote Analytics</h2>
+  <div class="bg-white p-4 rounded-xl shadow-md">
+    <canvas id="candidateChart" class="w-full h-48"></canvas>
+  </div>
+</section>
+
+<script>
+const ctx = document.getElementById('candidateChart').getContext('2d');
+const candidateChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Candidate A', 'Candidate B', 'Candidate C', 'Candidate D'],
+        datasets: [{
+            label: 'Votes',
+            data: [400, 300, 176, 100],
+            backgroundColor: ['#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
+            borderRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 50 } } }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superadmin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .scale-in {
+            animation: scaleIn 0.2s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .status-pending {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+        
+        .status-approved {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+        
+        .status-rejected {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+        }
+        
+        .modal-backdrop {
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 sidebar-gradient text-white z-40 slide-in">
+        <div class="p-6">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-vote-yea text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold">SecureVote</h1>
+                    <p class="text-sm text-gray-300">Superadmin Panel</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-blue-600 text-white">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="addAdmin.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Add Admins
+
+                    </span>
+                </a>
+                <a href="manageAdmin.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-users"></i>
+                    <span>Manage Admins</span> 
+                </a>
+                <a href="" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="setting.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+            <div class="flex items-center space-x-3 p-3 bg-slate-700 rounded-lg">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-sm"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium">Super Admin</p>
+                    <p class="text-xs text-gray-300">admin@securevote.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Admin Applications</h2>
+                        <p class="text-gray-600">Review and manage admin applications</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <i class="fas fa-bell text-gray-400 text-xl cursor-pointer hover:text-gray-600"></i>
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                           <a href="setting.html"> <i class="fas fa-user text-white text-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters and Search -->
+        <div class="p-6">
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 fade-in">
+                <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex-1 min-w-64">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="searchInput" placeholder="Search applications..." 
+                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <select id="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    
+                    <input type="date" id="dateFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    
+                    <button onclick="clearFilters()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        <i class="fas fa-times mr-2"></i>Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 card-hover fade-in">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clock text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-600">Pending</p>
+                            <p class="text-2xl font-bold text-gray-900" id="pendingCount">12</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-sm p-6 card-hover fade-in">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-check text-green-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-600">Approved</p>
+                            <p class="text-2xl font-bold text-gray-900" id="approvedCount">45</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-sm p-6 card-hover fade-in">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-times text-red-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-600">Rejected</p>
+                            <p class="text-2xl font-bold text-gray-900" id="rejectedCount">8</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-sm p-6 card-hover fade-in">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-purple-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-600">Total</p>
+                            <p class="text-2xl font-bold text-gray-900" id="totalCount">65</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Grid -->
+            <div id="applicationsGrid" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                <!-- Applications will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Detail Modal -->
+    <div id="applicationModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-backdrop fixed inset-0" onclick="closeModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden scale-in">
+                <div class="gradient-bg text-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold" id="modalName">imam</h3>
+                            <p class="text-blue-100" id="modalEmail">imam.doe@example.com</p>
+                        </div>
+                        <button onclick="closeModal()" class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-colors">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Application Details -->
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Application Details</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Country:</span>
+                                    <span class="font-medium" id="modalCountry">pakistan</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Organization:</span>
+                                    <span class="font-medium" id="modalOrganization">City Council</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Applied Date:</span>
+                                    <span class="font-medium" id="modalDate">2024-01-15</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Status:</span>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium" id="modalStatus">Pending</span>
+                                </div>
+                            </div>
+                            
+                            <h4 class="text-lg font-semibold mt-6 mb-4">Documents</h4>
+                            <div class="space-y-2" id="modalDocuments">
+                                <!-- Documents will be populated -->
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Actions</h4>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Region Code</label>
+                                    <input type="text" id="regionCode" placeholder="e.g., 202476" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Access Scope</label>
+                                    <select id="accessScope" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        <option value="city">City Level</option>
+                                        <option value="state">State Level</option>
+                                        <option value="national">National Level</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Feedback Message (Optional)</label>
+                                    <textarea id="feedbackMessage" rows="3" placeholder="Add feedback for the applicant..." 
+                                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+                                </div>
+                                
+                                <div class="flex space-x-3 pt-4">
+                                    <button onclick="approveApplication()" 
+                                            class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                        <i class="fas fa-check mr-2"></i>Approve
+                                    </button>
+                                    <button onclick="rejectApplication()" 
+                                            class="flex-1 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                        <i class="fas fa-times mr-2"></i>Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Toast -->
+    <div id="toast" class="fixed top-4 right-4 z-60 hidden">
+        <div class="bg-white rounded-lg shadow-lg border-l-4 p-4 max-w-sm">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i id="toastIcon" class="text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <p id="toastMessage" class="text-sm font-medium text-gray-900"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        const applications = [
+            {
+                id: 1,
+                name: "imam",
+                email: "imam.doe@example.com",
+                country: "pak",
+                organization: "City Council",
+                date: "2024-01-15",
+                status: "pending",
+                documents: ["ID Card", "form-B", "Certificate"],
+                history: "First time applicant"
+            },
+            {
+                id: 2,
+                name: "abdull",
+                email: "abdull.j@gov.uk",
+                country: "pak",
+                organization: "Electoral Commission",
+                date: "2024-01-14",
+                status: "approved",
+                documents: ["Id_card", "form-B", "certtifcate"],
+                history: "Previously approved in 2022"
+            },
+            {
+                id: 3,
+                name: "ansar",
+                email: "ansar.chen@elections.ca",
+                country: "pak",
+                organization: "Elections pak",
+                date: "2024-01-13",
+                status: "rejected",
+                documents: ["id","certificate", "formB"],
+                history: "Rejected due to incomplete documents"
+            },
+            {
+                id: 4,
+                name: "abdull",
+                email: "abdull.wilson@aec.gov.au",
+                country: "pak",
+                organization: "Australian Electoral Commission",
+                date: "2024-01-12",
+                status: "pending",
+                documents: ["IdCard", "formB", "certifcate"],
+                history: "First time applicant"
+            },
+           
+        ];
+
+        let currentApplicationId = null;
+        let filteredApplications = [...applications];
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            renderApplications();
+            updateStats();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterApplications);
+            document.getElementById('countryFilter').addEventListener('change', filterApplications);
+            document.getElementById('statusFilter').addEventListener('change', filterApplications);
+            document.getElementById('dateFilter').addEventListener('change', filterApplications);
+        }
+
+        function renderApplications() {
+            const grid = document.getElementById('applicationsGrid');
+            grid.innerHTML = '';
+
+            filteredApplications.forEach((app, index) => {
+                const card = createApplicationCard(app, index);
+                grid.appendChild(card);
+            });
+        }
+
+        function createApplicationCard(app, index) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-xl shadow-sm p-6 card-hover fade-in';
+            card.style.animationDelay = `${index * 0.1}s`;
+
+            const statusClass = `status-${app.status}`;
+            
+            card.innerHTML = `
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                            ${app.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">${app.name}</h3>
+                            <p class="text-sm text-gray-600">${app.email}</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-medium ${statusClass}">
+                        ${app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                    </span>
+                </div>
+                
+                <div class="space-y-2 mb-4">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-globe w-4 mr-2"></i>
+                        ${app.country}
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-building w-4 mr-2"></i>
+                        ${app.organization}
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-calendar w-4 mr-2"></i>
+                        ${new Date(app.date).toLocaleDateString()}
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <i class="fas fa-file-alt text-gray-400"></i>
+                        <span class="text-sm text-gray-600">${app.documents.length} documents</span>
+                    </div>
+                    <button onclick="openModal(${app.id})" 
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                        Review
+                    </button>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function filterApplications() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const country = document.getElementById('countryFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const date = document.getElementById('dateFilter').value;
+
+            filteredApplications = applications.filter(app => {
+                const matchesSearch = app.name.toLowerCase().includes(search) || 
+                                    app.email.toLowerCase().includes(search) ||
+                                    app.organization.toLowerCase().includes(search);
+                const matchesCountry = !country || app.country === country;
+                const matchesStatus = !status || app.status === status;
+                const matchesDate = !date || app.date === date;
+
+                return matchesSearch && matchesCountry && matchesStatus && matchesDate;
+            });
+
+            renderApplications();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('countryFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            filteredApplications = [...applications];
+            renderApplications();
+        }
+
+        function updateStats() {
+            const pending = applications.filter(app => app.status === 'pending').length;
+            const approved = applications.filter(app => app.status === 'approved').length;
+            const rejected = applications.filter(app => app.status === 'rejected').length;
+            const total = applications.length;
+
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('approvedCount').textContent = approved;
+            document.getElementById('rejectedCount').textContent = rejected;
+            document.getElementById('totalCount').textContent = total;
+        }
+
+        function openModal(applicationId) {
+            const app = applications.find(a => a.id === applicationId);
+            if (!app) return;
+
+            currentApplicationId = applicationId;
+
+            // Populate modal data
+            document.getElementById('modalName').textContent = app.name;
+            document.getElementById('modalEmail').textContent = app.email;
+            document.getElementById('modalCountry').textContent = app.country;
+            document.getElementById('modalOrganization').textContent = app.organization;
+            document.getElementById('modalDate').textContent = new Date(app.date).toLocaleDateString();
+            
+            const statusElement = document.getElementById('modalStatus');
+            statusElement.textContent = app.status.charAt(0).toUpperCase() + app.status.slice(1);
+            statusElement.className = `px-3 py-1 rounded-full text-sm font-medium status-${app.status}`;
+
+            // Populate documents
+            const documentsContainer = document.getElementById('modalDocuments');
+            documentsContainer.innerHTML = app.documents.map(doc => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-file-alt text-blue-600"></i>
+                        <span class="text-sm font-medium">${doc}</span>
+                    </div>
+                    <button class="text-blue-600 hover:text-blue-800 text-sm">
+                        <i class="fas fa-eye mr-1"></i>View
+                    </button>
+                </div>
+            `).join('');
+
+            // Show modal
+            document.getElementById('applicationModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('applicationModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            currentApplicationId = null;
+            
+            // Clear form
+            document.getElementById('regionCode').value = '';
+            document.getElementById('accessScope').value = 'city';
+            document.getElementById('feedbackMessage').value = '';
+        }
+
+        function approveApplication() {
+            if (!currentApplicationId) return;
+
+            const regionCode = document.getElementById('regionCode').value;
+            const accessScope = document.getElementById('accessScope').value;
+
+            if (!regionCode.trim()) {
+                showToast('Please enter a region code', 'error');
+                return;
+            }
+
+            // Update application status
+            const appIndex = applications.findIndex(app => app.id === currentApplicationId);
+            if (appIndex !== -1) {
+                applications[appIndex].status = 'approved';
+                applications[appIndex].regionCode = regionCode;
+                applications[appIndex].accessScope = accessScope;
+            }
+
+            showToast('Application approved successfully! Email sent to applicant.', 'success');
+            closeModal();
+            renderApplications();
+            updateStats();
+        }
+
+        function rejectApplication() {
+            if (!currentApplicationId) return;
+
+            const feedback = document.getElementById('feedbackMessage').value;
+
+            // Update application status
+            const appIndex = applications.findIndex(app => app.id === currentApplicationId);
+            if (appIndex !== -1) {
+                applications[appIndex].status = 'rejected';
+                if (feedback.trim()) {
+                    applications[appIndex].feedback = feedback;
+                }
+            }
+
+            showToast('Application rejected. Feedback sent to applicant.', 'success');
+            closeModal();
+            renderApplications();
+            updateStats();
+        }
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const messageEl = document.getElementById('toastMessage');
+
+            messageEl.textContent = message;
+
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle text-green-500 text-xl';
+                toast.querySelector('div').className = 'bg-white rounded-lg shadow-lg border-l-4 border-green-500 p-4 max-w-sm';
+            } else {
+                icon.className = 'fas fa-exclamation-circle text-red-500 text-xl';
+                toast.querySelector('div').className = 'bg-white rounded-lg shadow-lg border-l-4 border-red-500 p-4 max-w-sm';
+            }
+
+            toast.classList.remove('hidden');
+            toast.classList.add('fade-in');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('fade-in');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
