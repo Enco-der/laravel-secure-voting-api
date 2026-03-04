@@ -60,14 +60,17 @@ Key highlights:
 ## Screenshots
 
 ### Login & Registration
-![Login Screen](screenshots/login.png)  
+
+![singup Screen](screenshots/voterDisplay.png)
+![Login Screen](screenshots/singin.png)  
 ![Face Verification](screenshots/face-auth.png)
 
 ### Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard](screenshots/adminDashboard.png)
 
 ### Voting Process
-![Vote Casting](screenshots/voting.png)
+![Voter Dashbboard](screenshots/voterDisplay.png)
+
 
 ---
 
