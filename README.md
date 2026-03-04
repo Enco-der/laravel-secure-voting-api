@@ -71,8 +71,14 @@ Key highlights:
 ### SuperAdmin(Election comission)
 
 ![superAdmin Dashboard](screenshots/ElectionCommissionDashboard.png)
+
+### SuperAdmin(creating Admins)
 ![Creating Admins](screenshots/CreatingNewAdmin.png)
+
+### SuperAdmin(Document Verification)
 ![Document Verification](screenshots/DocumentVerfication.png)
+
+### SuperAdmin(Managing Admins)
 ![Managing_Admin Dashboard](screenshots/managingAdmins.png)
 
 ### Admin Dashboard
