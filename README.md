@@ -1,116 +1,134 @@
+# Laravel Secure Voting API
 
-A robust, scalable, and highly secure **Laravel-based Voting API** with multi-layer authentication, face verification, role management, and token-based voting. Designed for real-world online voting applications.
-
-------------------------------------------------------------------------------------------------------------------------------
-Key highlights:  
-------------------------------------------------------------------------------------------------------------------------------
-                                               
-- **Multi-level security**:
-  
-  1. Email + password verification from database  
-  2. Face recognition authentication for live verification  
-  3. Token-based session management for vote casting
-     
-     
-- **Multi-role architecture**:
-  
-  - Super Admin: Create/manage admins, oversee elections  
-  - Admin: Manage elections, supervise voters and candidates  
-  - Candidate: Submit and manage profile  
-  - Voter: Authenticate and cast votes  
-- **Scalable and maintainable**: MVC architecture with strict **separation of concerns**  
-- **Modern API-first approach**: Frontend and backend decoupled for **extensibility**  
-- **Automated email verification & credentials delivery** with OTP validation
-
-
--------------------------------------------------------------------------------------------------------------------
-## Features
--------------------------------------------------------------------------------------------------------------------
-
-### Authentication & Authorization
-
-- Laravel **Sanctum** for secure API token management  
-- Multi-role authorization (Super Admin, Admin, Candidate, Voter)  
-- Email verification with OTP  
-- Live face recognition for user validation  
-
-### Elections Management
-
-- Super Admin creates Admins for regions/elections  
-- Admin manages elections: create, supervise, generate reports  
-- Candidate management and voting  
-- Voter verification with **real-time token validation**
-
-### Security & Validation
-
-- Multi-layered authentication  
-- Token validation required for vote casting  
-- Secure API endpoints with role-based access  
-- Face verification ensures **real voters only**
-
-### Architecture & Design
-
-- MVC Laravel architecture  
-- API-based backend with separate frontend integration  
-- Clean code, separation of concerns, and scalable structure  
-- Ready for deployment on **enterprise-level applications**
+A **robust, scalable, and highly secure Laravel-based Voting API** designed for real-world online voting systems.  
+This project implements **multi-layer authentication**, **face verification**, **role-based access control**, and **token-secured voting** to ensure election integrity and voter authenticity.
 
 ---
 
-## Screenshots
+## 🚀 Key Highlights
 
-### Registration
+### 🔐 Multi-Layer Security
+1. Email & password authentication  
+2. Live face recognition for voter verification  
+3. Token-based session validation for vote casting  
 
-![Face Verification](screenshots/voterSignup.png)
+### 👥 Multi-Role Architecture
+- **Super Admin** – Oversees elections, creates and manages Admins  
+- **Admin** – Manages elections, voters, and candidates  
+- **Candidate** – Submits and manages candidate profile  
+- **Voter** – Authenticates securely and casts vote  
 
+### 🧱 Scalable & Maintainable
+- MVC architecture with strict separation of concerns  
+- Clean, modular, and extensible codebase  
 
-### Singin
-![Login Screen](screenshots/signin.png) 
+### 🔌 API-First Design
+- Backend fully decoupled from frontend  
+- Ready for web, mobile, or third-party integrations  
 
+### 📧 Automated Verification
+- Email verification using OTP  
+- Secure credential delivery workflow  
 
-### SuperAdmin(Election comission)
+---
 
-![superAdmin Dashboard](screenshots/ElectionCommissionDashboard.png)
+## ✨ Features
 
-### SuperAdmin(creating Admins)
-![Creating Admins](screenshots/CreatingNewAdmin.png)
+### 🔑 Authentication & Authorization
+- Token-based authentication using Laravel Sanctum  
+- Role-based authorization (Super Admin, Admin, Candidate, Voter)  
+- OTP-based email verification  
+- Face recognition for live identity validation  
 
-### SuperAdmin(Document Verification)
-![Document Verification](screenshots/DocumentVerfication.png)
+### 🗳️ Elections Management
+- Super Admin manages Admin accounts and elections  
+- Admin creates and supervises elections  
+- Candidate participation and management  
+- Secure voter validation before vote casting  
 
-### SuperAdmin(Managing Admins)
-![Managing_Admin Dashboard](screenshots/managingAdmins.png)
+### 🛡️ Security & Validation
+- Multi-layer authentication enforcement  
+- Token validation required for voting  
+- Role-protected API endpoints  
+- Face verification prevents impersonation and duplicate voting  
+
+---
+
+## 🧩 System Architecture
+
+- Laravel REST API backend  
+- Token-based authentication (Sanctum)  
+- Role-based middleware authorization  
+- Decoupled frontend support  
+- Designed for scalability and enterprise use  
+
+---
+
+## 📸 Project Screenshots
+
+### Voter Registration (Face Verification)
+![Voter registration with live face verification](screenshots/voterSignup.png)
+
+### User Sign In
+![User login screen](screenshots/signin.png)
+
+### Super Admin Dashboard (Election Commission)
+![Super Admin dashboard](screenshots/ElectionCommissionDashboard.png)
+
+### Creating New Admins
+![Super Admin creating Admin users](screenshots/CreatingNewAdmin.png)
+
+### Document Verification
+![Voter document verification](screenshots/DocumentVerfication.png)
+
+### Managing Admins
+![Admin management panel](screenshots/managingAdmins.png)
 
 ### Admin Dashboard
-![Admin Dashboard](screenshots/adminDashboard.png)
+![Admin dashboard for election management](screenshots/adminDashboard.png)
 
-### Voting Process
-![Voter Dashbboard](screenshots/voterDisplay.png)
+### Voting Interface
+![Voter voting interface](screenshots/voterDisplay.png)
 
-
-### Candidate Dispaly
-![Candidate Dashboard](screenshots/candidate.png)
+### Candidate Display
+![Candidate information display](screenshots/candidate.png)
 
 ---
 
-## Installation & Setup
+## 🧪 Testing (Planned / In Progress)
+- Authentication and authorization tests  
+- Vote validation and token verification tests  
+
+---
+
+## 🔐 Security Considerations
+- Role-based middleware protection  
+- Secure password hashing  
+- Token expiration and validation  
+- Face verification ensures real voters only  
+
+---
+
+## 🛠️ Installation & Setup
 
 ```bash
-# Clone the repo
+# Clone the repository
 git clone https://github.com/Enco-der/laravel-secure-voting-api.git
 cd laravel-secure-voting-api
 
-# Install dependencies
+# Install backend dependencies
 composer install
+
+# Install frontend dependencies
 npm install
 npm run dev
 
-# Copy environment file
+# Environment setup
 cp .env.example .env
 php artisan key:generate
 
-# Migrate database
+# Database migration
 php artisan migrate
 
-# Start Laravel server
+# Run the application
 php artisan serve
