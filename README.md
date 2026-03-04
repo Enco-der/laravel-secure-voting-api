@@ -61,9 +61,14 @@ Key highlights:
 
 ### Login & Registration
 
-![singup Screen](screenshots/voterDisplay.png)
 ![Login Screen](screenshots/singin.png)  
 ![Face Verification](screenshots/face-auth.png)
+
+### SuperAdmin(Election comission)
+![superAdmin Dashboard](screenshots/ElectionCommissionDashboard.png)
+![Creating Admins](screenshots/CreatingNewAdmin.png)
+![Document Verification](screenshots/DocumentVerification.png)
+![Managing_Admin Dashboard](screenshots/managingAdmins.png)
 
 ### Admin Dashboard
 ![Admin Dashboard](screenshots/adminDashboard.png)
@@ -71,6 +76,9 @@ Key highlights:
 ### Voting Process
 ![Voter Dashbboard](screenshots/voterDisplay.png)
 
+
+### Candidate Dispaly
+![Candidate Dashboard](screenshots/candidate.png)
 
 ---
 
