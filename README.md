@@ -59,16 +59,20 @@ Key highlights:
 
 ## Screenshots
 
-### Login & Registration
+### Registration
 
-![Login Screen](screenshots/signin.png)  
 ![Face Verification](screenshots/voterSignup.png)
+
+
+### Singin
+![Login Screen](screenshots/signin.png) 
+
 
 ### SuperAdmin(Election comission)
 
 ![superAdmin Dashboard](screenshots/ElectionCommissionDashboard.png)
 ![Creating Admins](screenshots/CreatingNewAdmin.png)
-![Document Verification](screenshots/DocumentVerification.png)
+![Document Verification](screenshots/DocumentVerfication.png)
 ![Managing_Admin Dashboard](screenshots/managingAdmins.png)
 
 ### Admin Dashboard
