@@ -181,7 +181,7 @@
                     <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                       <input type="radio" name="candidate" class="w-4 h-4 text-vote-blue">
                       <div class="ml-4">
-                        <div class="font-medium text-gray-900">Abdullah</div>
+                        <div class="font-medium text-gray-900">People’s Justice Party</div>
                         <div class="text-sm text-gray-600">Vision & Growth Coalition</div>
                       </div>
                     </div>
@@ -189,7 +189,7 @@
                     <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                       <input type="radio" name="candidate" class="w-4 h-4 text-vote-blue" checked>
                       <div class="ml-4">
-                        <div class="font-medium text-gray-900">Annsar</div>
+                        <div class="font-medium text-gray-900">Future Vision Party</div>
                         <div class="text-sm text-gray-600">The Future Initiative</div>
                       </div>
                     </div>
@@ -197,7 +197,7 @@
                     <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                       <input type="radio" name="candidate" class="w-4 h-4 text-vote-blue">
                       <div class="ml-4">
-                        <div class="font-medium text-gray-900">imam</div>
+                        <div class="font-medium text-gray-900">Citizen Rights Party</div>
                         <div class="text-sm text-gray-600">Progressive Action Alliance</div>
                       </div>
                     </div>
