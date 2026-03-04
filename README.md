@@ -61,10 +61,11 @@ Key highlights:
 
 ### Login & Registration
 
-![Login Screen](screenshots/singin.png)  
-![Face Verification](screenshots/face-auth.png)
+![Login Screen](screenshots/signin.png)  
+![Face Verification](screenshots/voterSignup.png)
 
 ### SuperAdmin(Election comission)
+
 ![superAdmin Dashboard](screenshots/ElectionCommissionDashboard.png)
 ![Creating Admins](screenshots/CreatingNewAdmin.png)
 ![Document Verification](screenshots/DocumentVerification.png)
